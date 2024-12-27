@@ -54,6 +54,18 @@ struct Point2d
     {
         return std::sqrt(this->radicand());
     }
+
+    [[nodiscard]] T taxicab(const Point2d& other = {0,0}) const
+    {
+        return std::abs(this->x-other.x)+std::abs(this->y-other.y);
+    }
+
+    Point2d<int>& operator+=(const Point2d& other)
+    {
+        this->x += other.x;
+        this->y += other.y;
+        return *this;
+    }
 };
 
 template<typename T>

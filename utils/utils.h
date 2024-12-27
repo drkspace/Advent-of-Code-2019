@@ -93,4 +93,14 @@ inline void ltrim(std::string &s) {
     }));
 }
 
+template <typename T>
+void print_arr(std::span<T> arr, const std::string sep = ",")
+{
+    for (const auto& ele: arr)
+    {
+        std::print("{}{}", ele, sep);
+    }
+    std::println("");
+}
+
 #endif //UTILS_H
