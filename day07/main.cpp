@@ -35,34 +35,34 @@ int main(const int argc, char *argv[])
         return 1;
     }
 
-    // {
-    //     const auto inp = getInput(argv[1]);
-    //
-    //
-    //     IntCode::dt max_power = 0;
-    //     std::vector<IntCode::dt> opts = {0,1,2,3,4};
-    //     do
-    //     {
-    //         IntCode::dt last_pow = 0;
-    //         for (const auto& ele: opts)
-    //         {
-    //             auto tmp_prog = inp;
-    //             std::queue<IntCode::dt> tmp;
-    //             tmp.push(ele);
-    //             tmp.push(last_pow);
-    //
-    //             last_pow = IntCode::run(tmp_prog, tmp);
-    //         }
-    //         if (last_pow > max_power)
-    //         {
-    //             max_power = last_pow;
-    //             print_arr(std::span(opts));
-    //         }
-    //     } while (std::next_permutation(opts.begin(), opts.end()));
-    //
-    //
-    //     std::println("Part 1: {}", max_power);
-    // }
+    {
+        const auto inp = getInput(argv[1]);
+
+
+        IntCode::dt max_power = 0;
+        std::vector<IntCode::dt> opts = {0,1,2,3,4};
+        do
+        {
+            IntCode::dt last_pow = 0;
+            for (const auto& ele: opts)
+            {
+                auto tmp_prog = inp;
+                std::queue<IntCode::dt> tmp;
+                tmp.push(ele);
+                tmp.push(last_pow);
+
+                last_pow = IntCode::run(tmp_prog, tmp);
+            }
+            if (last_pow > max_power)
+            {
+                max_power = last_pow;
+                print_arr(std::span(opts));
+            }
+        } while (std::next_permutation(opts.begin(), opts.end()));
+
+
+        std::println("Part 1: {}", max_power);
+    }
 
     {
         const auto inp = getInput(argv[1]);
