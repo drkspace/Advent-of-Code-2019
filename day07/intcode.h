@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <map>
 #include <vector>
+#include <queue>
 
 #include "../utils/utils.h"
 
@@ -99,7 +100,22 @@ namespace IntCode
         return {c, prefix};
     };
 
-    inline dt _run_op(Program& prog, const C& op, std::span<dt> arguments, const std::vector<uint8_t>& modes, const dt input, dt& output, dt& ip)
+    [[nodiscard]] inline bool next_is_inp(const Program& prog, const dt& ip)
+    {
+        return std::get<0>(intoc(prog[ip])) == C::INP;
+    }
+
+    [[nodiscard]] inline bool next_is_out(const Program& prog, const dt& ip)
+    {
+        return std::get<0>(intoc(prog[ip])) == C::OUT;
+    }
+
+    [[nodiscard]] inline bool halted(const Program& prog, const dt& ip)
+    {
+        return std::get<0>(intoc(prog[ip])) == C::HALT;
+    }
+
+    inline dt _run_op(Program& prog, const C& op, std::span<dt> arguments, const std::vector<uint8_t>& modes, std::queue<dt>& inputs, dt& output, dt& ip)
     {
         dt res;
         dt v1, v2, idx_out;
@@ -151,8 +167,14 @@ namespace IntCode
         case C::INP:
 
             idx_out = arguments.at(1);
-            prog[idx_out] = input;
-            return input;
+            if (inputs.size() == 0)
+            {
+                std::println("panic");
+            }
+            v1 = inputs.front();
+            inputs.pop();
+            prog[idx_out] = v1;
+            return v1;
         case C::OUT:
             if (modes[0] == 0)
             {
@@ -247,16 +269,36 @@ namespace IntCode
         }
     };
 
-    inline dt run(Program& prog, const dt input)
+    inline dt run(Program& prog, std::queue<dt>& inputs)
     {
         dt ip = 0;
         auto [op, modes] = intoc(prog[ip]);
         dt output = 0;
         while (op != C::HALT)
         {
-            _run_op(prog, op, std::span(std::next(prog.begin(), ip), INP_SIZE[op]), modes, input, output, ip);
+            _run_op(prog, op, std::span(std::next(prog.begin(), ip), INP_SIZE[op]), modes, inputs, output, ip);
             std::tie(op, modes) = intoc(prog.at(ip));
         }
+        return output;
+    };
+
+    /**
+     * \brief Runs the program until the next IO command or HALT. If the instruction at ip is an IO command,
+     * it will be run.
+     * \return
+     */
+    inline dt run_till_io(Program& prog, std::queue<dt>& inputs, dt& ip)
+    {
+        auto [op, modes] = intoc(prog[ip]);
+        dt output = 0;
+        if (op == C::HALT)
+        {
+            return 0;
+        }
+        do {
+            _run_op(prog, op, std::span(std::next(prog.begin(), ip), INP_SIZE[op]), modes, inputs, output, ip);
+            std::tie(op, modes) = intoc(prog.at(ip));
+        } while (op != C::HALT && op != C::INP && op != C::OUT);
         return output;
     };
 }

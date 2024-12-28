@@ -103,4 +103,20 @@ void print_arr(std::span<T> arr, const std::string sep = ",")
     std::println("");
 }
 
+template <typename T, size_t N>
+void print_arr(std::span<T, N> arr, const std::string sep = ",")
+{
+    for (const auto& ele: arr)
+    {
+        std::print("{}{}", ele, sep);
+    }
+    std::println("");
+}
+
+template <typename T>
+[[nodiscard]] inline T pmod(const T& a, const T& b)
+{
+    return (b + (a % b)) % b;
+}
+
 #endif //UTILS_H
