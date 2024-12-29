@@ -66,6 +66,11 @@ struct Point2d
         this->y += other.y;
         return *this;
     }
+
+    [[nodiscard]] float angle() const
+    {
+        return std::atan2(y,x);
+    }
 };
 
 template<typename T>

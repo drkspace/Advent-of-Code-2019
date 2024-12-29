@@ -116,7 +116,13 @@ void print_arr(std::span<T, N> arr, const std::string sep = ",")
 template <typename T>
 [[nodiscard]] inline T pmod(const T& a, const T& b)
 {
-    return (b + (a % b)) % b;
+    if constexpr (std::is_integral_v<T>)
+    {
+        return (b + (a % b)) % b;
+    } else
+    {
+        return fmod(b + fmod(a, b), b);
+    }
 }
 
 #endif //UTILS_H
