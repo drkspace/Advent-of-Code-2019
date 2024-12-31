@@ -18,11 +18,15 @@
 inline const auto& enumerate = std::ranges::views::enumerate;
 
 
-inline auto split(const std::string& inp, const char delim) {
+inline auto split(const std::string& inp, const char delim, const bool remove_empty = false) {
     std::string tmp;
     std::vector<std::string> r;
     std::istringstream s(inp);
     while (std::getline(s, tmp, delim)) {
+        if (remove_empty && tmp.empty())
+        {
+            continue;
+        }
         r.push_back(tmp);
     }
     return r;
