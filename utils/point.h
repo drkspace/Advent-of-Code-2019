@@ -60,7 +60,7 @@ struct Point2d
         return std::abs(this->x-other.x)+std::abs(this->y-other.y);
     }
 
-    Point2d<int>& operator+=(const Point2d& other)
+    Point2d<T>& operator+=(const Point2d& other)
     {
         this->x += other.x;
         this->y += other.y;
@@ -138,6 +138,19 @@ struct Point3d
     [[nodiscard]] T abs() const
     {
         return std::sqrt(this->radicand());
+    }
+
+    Point3d<T>& operator+=(const Point3d& other)
+    {
+        this->x += other.x;
+        this->y += other.y;
+        this->z += other.z;
+        return *this;
+    }
+
+    [[nodiscard]] T sum_abs() const
+    {
+        return std::abs(this->x)+std::abs(this->y)+std::abs(this->z);
     }
 
 };

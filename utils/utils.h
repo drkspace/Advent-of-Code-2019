@@ -125,4 +125,10 @@ template <typename T>
     }
 }
 
+template <typename T>
+[[nodiscard]] constexpr T sign(const T& v)
+{
+    return (T(0) < v) - (v < T(0));
+}
+
 #endif //UTILS_H
