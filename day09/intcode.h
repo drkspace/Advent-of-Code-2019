@@ -20,6 +20,7 @@ namespace IntCode
         dt relative_base = 0;
 
         Program() = default;
+        Program(const Program& other) = default;
         explicit Program(const std::vector<dt>& program): program(program), relative_base(0){};
 
         void set(const dt address, const dt val)
