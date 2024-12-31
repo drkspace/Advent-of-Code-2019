@@ -157,6 +157,12 @@ int main(const int argc, char *argv[])
             bool x_conf=false, y_conf=false, z_conf=false, xv_conf=false, yv_conf=false, zv_conf=false;
             for (size_t j = 0; j<pos_hist.size(); j++)
             {
+
+                if (x_conf && y_conf && z_conf && xv_conf && yv_conf && zv_conf)
+                {
+                    break;
+                }
+
                 const auto p = pos_hist[j][i];
                 const auto v = velo_hist[j][i];
 
