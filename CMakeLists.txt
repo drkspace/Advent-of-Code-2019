@@ -21,6 +21,8 @@ add_executable(day13 day13/main.cpp utils/utils.h day09/intcode.h)
 add_executable(day14 day14/main.cpp utils/utils.h)
 add_executable(day15 day15/main.cpp utils/utils.h day09/intcode.h)
 add_executable(day16 day16/main.cpp utils/utils.h easyTimer.h)
+add_executable(day17 day17/main.cpp utils/utils.h day09/intcode.h)
+add_executable(day18 day18/main.cpp utils/utils.h easyTimer.h)
 
 find_package(OpenMP REQUIRED)
 target_link_libraries(day16 PRIVATE OpenMP::OpenMP_CXX)
