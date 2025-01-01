@@ -14,6 +14,7 @@
 namespace IntCode
 {
     using dt = intmax_t;
+    using InputQueue = std::queue<dt>;
     struct Program
     {
         std::vector<dt> program;
