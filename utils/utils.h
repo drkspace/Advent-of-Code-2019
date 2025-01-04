@@ -76,6 +76,21 @@ struct hash_tuple {
 
 };
 
+template<typename T>
+struct std::hash<std::set<T>>
+{
+    std::size_t operator()(std::set<T> const& s) const {
+        std::size_t seed = s.size();
+        for(auto x : s) {
+            x = ((x >> 16) ^ x) * 0x45d9f3b;
+            x = ((x >> 16) ^ x) * 0x45d9f3b;
+            x = (x >> 16) ^ x;
+            seed ^= x + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        }
+        return seed;
+    }
+};
+
 template <class T1, class T2>
 std::ostream& operator<<(std::ostream& os, const std::pair<T1, T2>& p) {
     os << "(" << p.first << "," << p.second << ")";
