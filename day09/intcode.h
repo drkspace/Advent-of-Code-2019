@@ -198,7 +198,7 @@ namespace IntCode
         case C::ADD:
             v1 = _get_mode_val(modes[0], prog, arguments[1]);
             v2 = _get_mode_val(modes[1], prog, arguments[2]);
-            idx_out = _get_mode_val_idx(modes[2], prog, arguments.at(3));
+            idx_out = _get_mode_val_idx(modes[2], prog, arguments[3]);
             res = v1+v2;
             prog.set(idx_out, res);
             return res;
@@ -206,14 +206,14 @@ namespace IntCode
             {
                 v1 = _get_mode_val(modes[0], prog, arguments[1]);
                 v2 = _get_mode_val(modes[1], prog, arguments[2]);
-                idx_out = _get_mode_val_idx(modes[2], prog, arguments.at(3));
+                idx_out = _get_mode_val_idx(modes[2], prog, arguments[3]);
                 res = v1*v2;
                 prog.set(idx_out, res);
                 return res;
             }
         case C::INP:
 
-            idx_out = _get_mode_val_idx(modes[0], prog, arguments.at(1));
+            idx_out = _get_mode_val_idx(modes[0], prog, arguments[1]);
             if (inputs.empty())
             {
                 std::println("panic");
@@ -223,13 +223,13 @@ namespace IntCode
             prog.set(idx_out, v1);
             return v1;
         case C::OUT:
-            v1 = _get_mode_val(modes[0], prog, arguments.at(1));
+            v1 = _get_mode_val(modes[0], prog, arguments[1]);
             output = v1;
             return output;
 
         case C::JNZ:
-            v1 = _get_mode_val(modes[0], prog, arguments.at(1));
-            v2 = _get_mode_val(modes[1], prog, arguments.at(2));
+            v1 = _get_mode_val(modes[0], prog, arguments[1]);
+            v2 = _get_mode_val(modes[1], prog, arguments[2]);
 
             if (v1 != 0)
             {
@@ -237,8 +237,8 @@ namespace IntCode
             }
             return ip;
         case C::JZ:
-            v1 = _get_mode_val(modes[0], prog, arguments.at(1));
-            v2 = _get_mode_val(modes[1], prog, arguments.at(2));
+            v1 = _get_mode_val(modes[0], prog, arguments[1]);
+            v2 = _get_mode_val(modes[1], prog, arguments[2]);
 
             if (v1 == 0)
             {
@@ -246,21 +246,21 @@ namespace IntCode
             }
             return ip;
         case C::LT:
-            v1 = _get_mode_val(modes[0], prog, arguments.at(1));
-            v2 = _get_mode_val(modes[1], prog, arguments.at(2));
-            idx_out = _get_mode_val_idx(modes[2], prog, arguments.at(3));
+            v1 = _get_mode_val(modes[0], prog, arguments[1]);
+            v2 = _get_mode_val(modes[1], prog, arguments[2]);
+            idx_out = _get_mode_val_idx(modes[2], prog, arguments[3]);
 
             prog.set(idx_out, v1 < v2);
             return v1 < v2;
         case C::EQ:
-            v1 = _get_mode_val(modes[0], prog, arguments.at(1));
-            v2 = _get_mode_val(modes[1], prog, arguments.at(2));
-            idx_out = _get_mode_val_idx(modes[2], prog, arguments.at(3));
+            v1 = _get_mode_val(modes[0], prog, arguments[1]);
+            v2 = _get_mode_val(modes[1], prog, arguments[2]);
+            idx_out = _get_mode_val_idx(modes[2], prog, arguments[3]);
 
             prog.set(idx_out, v1 == v2);
             return v1 == v2;
         case C::RBA:
-            v1 = _get_mode_val(modes[0], prog, arguments.at(1));
+            v1 = _get_mode_val(modes[0], prog, arguments[1]);
             prog.relative_base += v1;
             return prog.relative_base;
         case C::ERR:
