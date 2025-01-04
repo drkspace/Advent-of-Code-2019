@@ -29,6 +29,7 @@ inline auto split(const std::string& inp, const char delim, const bool remove_em
         }
         r.push_back(tmp);
     }
+    r.shrink_to_fit();
     return r;
 };
 
@@ -42,7 +43,7 @@ inline std::vector<std::string> read_file(const std::string& fp){
         std::getline(file, tmp);
         out.emplace_back(tmp);
     }
-
+    out.shrink_to_fit();
     return out;
 
 }

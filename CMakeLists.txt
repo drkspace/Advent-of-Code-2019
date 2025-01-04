@@ -3,6 +3,7 @@ project(avoc2019)
 
 set(CMAKE_CXX_COMPILER g++-14)
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-Wall -Wextra -Werror)
 
 add_executable(day01 day01/main.cpp utils/utils.h)
@@ -24,6 +25,9 @@ add_executable(day16 day16/main.cpp utils/utils.h easyTimer.h)
 add_executable(day17 day17/main.cpp utils/utils.h day09/intcode.h)
 add_executable(day18 day18/main.cpp utils/utils.h easyTimer.h)
 add_executable(day18p2 day18/main_pt2.cpp utils/utils.h easyTimer.h)
+add_executable(day19 day19/main.cpp utils/utils.h day09/intcode.h)
+add_executable(day20 day20/main.cpp utils/utils.h easyTimer.h)
+
 
 find_package(OpenMP REQUIRED)
 target_link_libraries(day16 PRIVATE OpenMP::OpenMP_CXX)
