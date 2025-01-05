@@ -113,8 +113,8 @@ inline void ltrim(std::string &s) {
     }));
 }
 
-template <typename T>
-void print_arr(std::span<T> arr, const std::string sep = ",")
+template<typename R>
+void print_arr(R&& arr, const std::string sep = ",")
 {
     for (const auto& ele: arr)
     {
@@ -123,15 +123,15 @@ void print_arr(std::span<T> arr, const std::string sep = ",")
     std::println("");
 }
 
-template <typename T, size_t N>
-void print_arr(std::span<T, N> arr, const std::string sep = ",")
-{
-    for (const auto& ele: arr)
-    {
-        std::print("{}{}", ele, sep);
-    }
-    std::println("");
-}
+// template <typename T, size_t N>
+// void print_arr(std::span<T, N> arr, const std::string sep = ",")
+// {
+//     for (const auto& ele: arr)
+//     {
+//         std::print("{}{}", ele, sep);
+//     }
+//     std::println("");
+// }
 
 template <typename T>
 [[nodiscard]] inline T pmod(const T& a, const T& b)
